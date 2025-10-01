@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "519142677304",
+    "firebase_url": "https://deliveryfavela-app-default-rtdb.firebaseio.com",
+    "project_id": "deliveryfavela-app",
+    "storage_bucket": "deliveryfavela-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519142677304:android:e395ee7b667331c5853fcd",
+        "android_client_info": {
+          "package_name": "com.deliverydfavelas.cliente"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwlnrMVCyqP9ygyakjAqDOVZX5xW6zJ_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519142677304:android:aff22c343200c7d4853fcd",
+        "android_client_info": {
+          "package_name": "com.deliverydfavelas.entregador"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwlnrMVCyqP9ygyakjAqDOVZX5xW6zJ_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

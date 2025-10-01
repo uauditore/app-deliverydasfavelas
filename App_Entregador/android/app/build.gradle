@@ -1,0 +1,171 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.gms.google-services'
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+// Simplificando e agilizando as entregas dos Restaurantes e Estabelecimentos
+
+// O XXXXXXX é um aplicativo projetado especificamente para otimizar o processo de entregas dos restaurantes. Com recursos avançados e uma interface intuitiva, o XXXXXXX permite que os entregadores realizem suas tarefas de forma eficiente e organizada. Acreditamos que a entrega é uma parte essencial da experiência do cliente, e é por isso que desenvolvemos o XXXXXXX para facilitar o trabalho dos entregadores e garantir a satisfação dos clientes.
+
+
+// Receber notificações de novas entregas
+
+// Quando o sistema recebe um novo pedido de entrega, o aplicativo deve receber notificações mesmo em segundo plano, somente quando o usuário estiver online, para poder ser alertado sobre essa nova entrega e interagir com a mesma, aceitando ou recusando.
+
+// https://youtu.be/cXpBGD-0IB0
+
+android {
+    compileSdkVersion 34
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.app.entregador"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 6
+        versionName "1.0.6"
+        multiDexEnabled true
+
+        resValue "string", "app_name", "AppEntregador"
+        resValue "string", "google_map_key", "xxxxxxxxxx"
+    }
+
+    flavorDimensions "flavors"
+    productFlavors {
+        deliverydasfavelas {
+            dimension 'flavors'
+
+            applicationId "com.deliverydfavelas.entregador"
+
+            resValue "string", "app_name", "DeFav- Entregadores"
+            resValue "string", "google_map_key", "AIzaSyDHvHnJ2YmY6_Rg3D4D1Bwr9aJ5ZBojZUA"
+        }
+
+        mobiler {
+            dimension 'flavors'
+
+            applicationId "com.mobilerdelivery.entregador"
+
+            resValue "string", "app_name", "MobilerDelivery Entregador"
+            resValue "string", "google_map_key", "AIzaSyCLWyf_Qfiu2QtlBt6UaDOmY8JQU_bt8YQ"
+        }
+
+        mobilerteste {
+            dimension 'flavors'
+
+            applicationId "com.mobilerteste.delivery.entregador"
+
+            resValue "string", "app_name", "MobilerTeste Delivery Driver"
+            resValue "string", "google_map_key", "AIzaSyAOoRfCdpcqhqds5K_d8eoIyTaMhgcwjTE"
+        }
+
+        trazfavela {
+            dimension 'flavors'
+
+            applicationId "com.deliverytrazfavela.entregador"
+
+            resValue "string", "app_name", "TrazFavela Correria"
+            resValue "string", "google_map_key", "AIzaSyC07gPomx9L2EJw095Fpv_xXWn46Lv8gHk"
+        }
+
+        belmob {
+            dimension 'flavors'
+
+            applicationId "com.belmob.deliveryman"
+
+            resValue "string", "app_name", "Belmob Driver"
+            resValue "string", "google_map_key", "AIzaSyBO-aabqcXbSAatfnomdJ_XBsT_QVT4fCc"
+        }
+
+        oladelivery {
+            dimension 'flavors'
+
+            applicationId "com.oladelivery.entregador"
+
+            resValue "string", "app_name", "Olá! Delivery Entregador"
+            resValue "string", "google_map_key", "AIzaSyAGTANuoaNHd-PAs7n5xDvos5_dNeElgYQ"
+        }
+
+        vaidedelivery {
+            dimension 'flavors'
+
+            applicationId "com.vaidedelivery.deliveryman"
+
+            resValue "string", "app_name", "Vai de Delivery Entregador"
+            resValue "string", "google_map_key", "AIzaSyCl-dbh1YEHwEz65wI4lBJNWhbOnOxcFHI"
+        }
+
+        vegfood {
+            dimension 'flavors'
+
+            applicationId "com.vegfoodbr.entregador"
+
+            resValue "string", "app_name", "Vegfood Entregador"
+            resValue "string", "google_map_key", "AIzaSyDWPh19uDN8EVwTbJB3Z2SkMCI6Bfxdw1c"
+        }
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //implementation "com.google.firebase:firebase-messaging:21.0.1"
+    implementation platform('com.google.firebase:firebase-bom:32.2.2')
+}

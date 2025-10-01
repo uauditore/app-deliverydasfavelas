@@ -1,0 +1,103 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterRoot = localProperties.getProperty('flutter.sdk')
+if (flutterRoot == null) {
+    throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.gms.google-services'
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+// Delivery rápido e prático. Peça no XXXXXXX!
+
+// XXXXXXX é um aplicativo inovador que visa simplificar o processo de entrega de alimentos, produtos e serviços. Com uma ampla rede de estabelecimentos parceiros e uma interface intuitiva, o XXXXXXX conecta você aos melhores restaurantes, lojas e prestadores de serviços da região, permitindo que você faça pedidos com apenas alguns toques na tela do seu dispositivo móvel. Acreditamos que a satisfação do cliente é a prioridade máxima, e é por isso que projetamos o XXXXXXX para tornar suas experiências de entrega ainda mais agradáveis e convenientes.
+
+android {
+    compileSdkVersion 34
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlinOptions {
+        jvmTarget = '11'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.deliverydfavelas.cliente"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 7
+        versionName "1.0.7"
+        multiDexEnabled true
+
+        resValue "string", "app_name", "Delivery das Favelas"
+        resValue "string", "google_map_key", "AIzaSyDHvHnJ2YmY6_Rg3D4D1Bwr9aJ5ZBojZUA"
+
+        resValue "string", "deep_url", "deliverydasfavelas.app.br"
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+            shrinkResources false
+        }
+        debug {
+            shrinkResources false
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
+}
